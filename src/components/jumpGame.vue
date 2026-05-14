@@ -44,9 +44,9 @@ export default {
       isMusicPlaying: false, // Tracks if music loop has been initialized yet
       
       // Asset resolution paths matching your Vue setup configuration
-      jumpSoundSrc: new URL('../assets/Jump.mp3', import.meta.url).href,
-      pointSoundSrc: new URL('../assets/Point.mp3', import.meta.url).href,
-      bgMusicSrc: new URL('../assets/background.mp3', import.meta.url).href
+      jumpSoundSrc: new URL('../assets/sound/Jump.mp3', import.meta.url).href,
+      pointSoundSrc: new URL('../assets/sound/Point.mp3', import.meta.url).href,
+      bgMusicSrc: new URL('../assets/sound/background.mp3', import.meta.url).href
     };
   },
   mounted() {
