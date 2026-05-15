@@ -41,22 +41,19 @@ export default {
       speed: 6,
       animationFrameId: null,
       bgMusic: null,
-      isMusicPlaying: false, // Tracks if music loop has been initialized yet
+      isMusicPlaying: false,
       
-      // Asset resolution paths matching your Vue setup configuration
-      jumpSoundSrc: new URL('../assets/sound/Jump.mp3', import.meta.url).href,
-      pointSoundSrc: new URL('../assets/sound/Point.mp3', import.meta.url).href,
-      bgMusicSrc: new URL('../assets/sound/background.mp3', import.meta.url).href
+      // VUE CLI / WEBPACK FIX: Use require() with the @ alias to resolve paths accurately
+      jumpSoundSrc: require('@/assets/sound/Jump.mp3'),
+      pointSoundSrc: require('@/assets/sound/Point.mp3'),
+      bgMusicSrc: require('@/assets/sound/background.mp3')
     };
   },
   mounted() {
-    // Listen for keyboard inputs globally
     window.addEventListener("keydown", this.handleKeyDown);
-    // Start game loop mechanics immediately on mount
     this.startGame();
   },
   unmounted() {
-    // Prevent memory and background audio process leakage
     window.removeEventListener("keydown", this.handleKeyDown);
     cancelAnimationFrame(this.animationFrameId);
     this.stopMusic();
@@ -71,7 +68,7 @@ export default {
         
         if (this.gameOver) return;
 
-        // BROWSER BYPASS: Triggers background music context on the first ever user input action
+        // Start background music loop on the first user interaction
         if (!this.isMusicPlaying) {
           this.playMusic();
         }
@@ -147,7 +144,7 @@ export default {
     playMusic() {
       this.bgMusic = new Audio(this.bgMusicSrc);
       this.bgMusic.loop = true;
-      this.bgMusic.volume = 0.2;
+      this.bgMusic.volume = 1;
       this.bgMusic.play()
         .then(() => {
           this.isMusicPlaying = true;
